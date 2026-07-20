@@ -3,14 +3,14 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # 2. Copy file Solution và các file .csproj để restore thư viện
-COPY ["YouthUnionManager.sln", "./"]
+COPY ["YouthUnionManager.slnx", "./"]
 COPY ["API/API.csproj", "API/"]
 COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
 # Nếu có thư mục Core hay Application thì bỏ comment và sửa 2 dòng dưới:
 # COPY ["Core/Core.csproj", "Core/"]
 # COPY ["Application/Application.csproj", "Application/"]
 
-RUN dotnet restore "YouthUnionManager.sln"
+RUN dotnet restore "YouthUnionManager.slnx"
 
 # 3. Copy toàn bộ mã nguồn còn lại và tiến hành Build
 COPY . .
