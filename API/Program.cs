@@ -59,6 +59,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyFrontend", policy =>
+    {
+        policy.WithOrigins("https://youth-union-manager-nbm3680u2-phuc-chinhs-projects.vercel.app") // Bỏ dấu / ở cuối URL
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // Rất quan trọng nếu bạn có dùng Token/Cookie đăng nhập
+    });
+});
+
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -88,7 +99,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowNextJs");
+app.UseCors("AllowMyFrontendNextJs");
 
 app.UseAuthentication(); // Thêm dòng này (Xác thực xem token có hợp lệ không)
 app.UseAuthorization();  // Thêm dòng này (Kiểm tra xem có quyền gọi API không)
