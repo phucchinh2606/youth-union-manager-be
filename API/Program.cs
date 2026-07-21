@@ -63,7 +63,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyFrontend", policy =>
     {
-        policy.WithOrigins("https://youth-union-manager-nbm3680u2-phuc-chinhs-projects.vercel.app") // Bỏ dấu / ở cuối URL
+        policy.WithOrigins("https://youth-union-manager-fe.vercel.app/login",
+        "https://youth-union-manager-fe-phuc-chinhs-projects.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials(); // Rất quan trọng nếu bạn có dùng Token/Cookie đăng nhập
