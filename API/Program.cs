@@ -15,26 +15,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // THÊM ĐOẠN NÀY ĐỂ MỞ KHÓA CORS CHO NEXT.JS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowNextJs", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000") // Trỏ đúng cổng của Next.js
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
-});
-
+// Gộp chung localhost và Vercel vào 1 Policy duy nhất
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyFrontend", policy =>
     {
-        policy.WithOrigins("https://youth-union-manager-fe.vercel.app",
-        "https://youth-union-manager-fe-phuc-chinhs-projects.vercel.app")
+        policy.WithOrigins(
+                "http://localhost:3000", // Link chạy ở máy local
+                "https://youth-union-manager-fe.vercel.app", // Link Vercel 1
+                "https://youth-union-manager-fe-phuc-chinhs-projects.vercel.app" // Link Vercel 2
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials(); // Rất quan trọng nếu bạn có dùng Token/Cookie đăng nhập
+              .AllowCredentials();
     });
 });
 
@@ -102,7 +95,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowMyFrontendNextJs");
+// Đổi tên gọi cho chính xác
+app.UseCors("AllowMyFrontend");
 
 app.UseAuthentication(); // Thêm dòng này (Xác thực xem token có hợp lệ không)
 app.UseAuthorization();  // Thêm dòng này (Kiểm tra xem có quyền gọi API không)
