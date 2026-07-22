@@ -23,7 +23,7 @@ namespace Infrastructure.Data
                 {
                     FullName = "Bí thư Chi đoàn",
                     Gender = Gender.Male,
-                    DateOfBirth = new DateTime(2000, 1, 1),
+                    DateOfBirth = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     PhoneNumber = "0123456789", // Tài khoản mặc định
                     PasswordHash = passwordHasher.HashPassword("Admin@123"), // Mật khẩu mặc định
                     Position = Position.Secretary,

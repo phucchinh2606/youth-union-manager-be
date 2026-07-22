@@ -63,7 +63,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyFrontend", policy =>
     {
-        policy.WithOrigins("https://youth-union-manager-fe.vercel.app/login",
+        policy.WithOrigins("https://youth-union-manager-fe.vercel.app",
         "https://youth-union-manager-fe-phuc-chinhs-projects.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod()
